@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreepNote - SignUp</title>
+</head>
+<body>
+    <header>
+        <a href="{% url 'index' %}"><button>Login</button></a>
+    </header>
+    <main>
+        <h4>CreepNote - SignUp:</h4>
+        <form action="{% url 'signupPage' %}" method="POST">
+            {% csrf_token %}
+            <div style="display: flex;">
+                <h3>E-Mail:</h3><input type="email" name="email">
+            </div>
+            <div style="display: flex;">
+                <h3>Username:</h3><input type="text" name="username">
+            </div>
+            <div style="display: flex;">
+                <h3>Password:</h3><input type="password" name="password">
+            </div>
+            <div style="display: flex;">
+                <h3>BirthDate:</h3><input type="date" name="birthdate">
+            </div>
+            <br> <br>
+            <button type="submit">SignUp</button>
+        </form>
+    </main>
+    <footer></footer>
+</body>
+</html>
