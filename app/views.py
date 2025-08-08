@@ -46,3 +46,21 @@ def signupPage(request):
 @login_required(login_url=index)
 def home(request):
     return render(request, 'home.html')
+
+@login_required(login_url=index)
+def profilePage(request):
+
+    if request.method == "POST":
+
+        ## Collecting new data ##
+        username = request.POST.get("username")
+        bio = request.POST.get("bio")
+        picutre = request.FILES.get("picture")
+
+        ## Updating profile ##
+        CNUser.updateInfos(request.user.id, username, bio, picutre)
+
+        ## Redirecting to home ##
+        return redirect(home)
+
+    return render(request, 'profilePage.html')

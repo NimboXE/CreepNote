@@ -25,4 +25,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('signupPage/', signupPage, name='signupPage'),
     path('home/', home, name='home'),
+    path('profilePage/', profilePage, name='profilePage'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -16,4 +16,20 @@ class CNUser(AbstractUser):
     @classmethod
     def createNewUser(cls, username, birthdate, email, password):
         return cls.objects.create_user(CNUsername=username, CNBirthdate=birthdate, CNEmail=email, username=username, email=email, password=password)
+    
+    @classmethod
+    def updateInfos(cls, id, username, bio, picture):
+
+        ## Profile ##
+        profile = cls.objects.get(id=id)
+
+        ## Updating infos ##
+        profile.CNUsername = username
+        profile.CNBio = bio
+        profile.CNPicture = picture
+        profile.username = username
+
+        ## Saving the data
+        profile.save()
+        
     ###############

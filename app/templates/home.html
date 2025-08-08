@@ -7,5 +7,11 @@
 </head>
 <body>
     CreepNote - {{request.user.username}}'s Home
+    <br> <br>
+    <a href="{% url 'profilePage' %}"><button>Profile Page</button></a>
+    <br> <br>
+    <div>
+        <img src="{{request.user.CNPicture.url}}" alt="" srcset="" style="width: 200px;">
+    </div>
 </body>
 </html>

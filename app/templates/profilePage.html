@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreepNote - {{request.user.username}}'s Profile Page</title>
+</head>
+<body>
+    <a href="{% url 'home' %}"><button>Voltar</button></a>
+    <form action="{% url 'profilePage' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div style="display: flex;">
+            <h3>Username:</h3><input type="text" name="username" value="{{request.user.username}}">
+        </div>
+        <div>
+            <h3>Picture:</h3><input type="file" name="picture">
+        </div>
+        <div>
+            <h3>Bio:</h3>
+            <textarea name="bio" id="" cols="30" rows="10">{{request.user.CNBio}}</textarea>
+        </div>
+        <br> <br>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
