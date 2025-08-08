@@ -22,5 +22,28 @@
         <br> <br>
         <button type="submit">Save</button>
     </form>
+    <hr>
+    <div>
+        {% for post in userPosts %}
+            <div>
+                <div>
+                    <h3>
+                        {{post.title}}
+                    </h3>
+                </div>
+                {% if post.attachment.url != "" %}
+                <div>
+                    <img src="{{post.attachment.url}}" alt="" srcset="" style="width: 200px;">
+                </div>
+                {% endif %}
+                <div>
+                    <h3>
+                        <textarea name="" id="" cols="30" rows="10" readonly style="resize: none;">{{post.content}}</textarea>
+                    </h3>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
 </body>
 </html>

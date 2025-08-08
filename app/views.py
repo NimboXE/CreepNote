@@ -45,10 +45,26 @@ def signupPage(request):
 
 @login_required(login_url=index)
 def home(request):
+
+    if request.method == "POST":
+
+        ## Collecting post data ##
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        attachment = request.FILES.get("attachment")
+        userOwner = request.user
+
+        ## Creating post ##
+        Post.newPost(title, content, attachment, userOwner)
+
+        return redirect(home)
+
     return render(request, 'home.html')
 
 @login_required(login_url=index)
 def profilePage(request):
+
+    userPosts = Post.objects.filter(userOwner=request.user)
 
     if request.method == "POST":
 
@@ -63,4 +79,4 @@ def profilePage(request):
         ## Redirecting to home ##
         return redirect(home)
 
-    return render(request, 'profilePage.html')
+    return render(request, 'profilePage.html', {'userPosts':userPosts})

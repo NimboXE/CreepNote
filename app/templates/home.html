@@ -13,5 +13,21 @@
     <div>
         <img src="{{request.user.CNPicture.url}}" alt="" srcset="" style="width: 200px;">
     </div>
+    <div>
+        <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: flex;">
+                <h3>Title:</h3><input type="text" name="title">
+            </div>
+            <div>
+                <textarea name="content" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <h3>Attachment?</h3>
+                <input type="file" name="attachment">
+            </div>
+            <button type="submit">Post</button>
+        </form>
+    </div>
 </body>
 </html>

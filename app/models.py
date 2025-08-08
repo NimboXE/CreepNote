@@ -31,5 +31,28 @@ class CNUser(AbstractUser):
 
         ## Saving the data
         profile.save()
-        
+
     ###############
+
+class Post(models.Model):
+
+    ## Atributes ##
+    title = models.CharField(max_length=55, null=False, blank=False)
+    content = models.TextField(null=False, blank=True)
+    attachment = models.FileField(null=False, blank=True)
+    likes = models.IntegerField(null=False, blank=False, default=0)
+    userOwner = models.ForeignKey(CNUser, on_delete=models.CASCADE)
+
+    ################
+
+    ## Functions ##
+    @classmethod
+    def newPost(cls, title, content, attachment, userOwner):
+
+        ## If for attachment == 1 ##
+        if attachment != "":
+            return cls.objects.create(title=title, content=content, attachment=attachment, userOwner=userOwner)
+        
+        ## Elif for attachment == 0
+        elif attachment == "":
+            return cls.objects.create(title=title, content=content, userOwner=userOwner)
