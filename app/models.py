@@ -40,8 +40,8 @@ class Post(models.Model):
     title = models.CharField(max_length=55, null=False, blank=False)
     content = models.TextField(null=False, blank=True)
     attachment = models.FileField(null=False, blank=True)
-    likes = models.IntegerField(null=False, blank=False, default=0)
     userOwner = models.ForeignKey(CNUser, on_delete=models.CASCADE)
+    likes = models.IntegerField(null=False, blank=False, default=0)
 
     ################
 
@@ -56,3 +56,20 @@ class Post(models.Model):
         ## Elif for attachment == 0
         elif attachment == "":
             return cls.objects.create(title=title, content=content, userOwner=userOwner)
+        
+class PostLike(models.Model):
+
+    ## Atributes ##
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    userOwner = models.ForeignKey(CNUser, on_delete=models.CASCADE)
+
+    ###############
+
+    ## Functions ##
+    @classmethod
+    def giveLike(cls, post, userOwner):
+        return cls.objects.create(post=post, userOwner=userOwner)
+    
+    @classmethod
+    def unLike(cls, post, userOwner):
+        return cls.objects.get(post=post, userOwner=userOwner).delete()

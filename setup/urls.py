@@ -26,4 +26,5 @@ urlpatterns = [
     path('signupPage/', signupPage, name='signupPage'),
     path('home/', home, name='home'),
     path('profilePage/', profilePage, name='profilePage'),
+    path('likeOptions/<id>', likeOptions, name='likeOptions'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

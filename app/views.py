@@ -15,7 +15,6 @@ def index(request):
 
         ## Login ##
         user = authenticate(request, username=username, password=password)
-        print(user)
 
         if user is not None:
             login(request, user)
@@ -64,7 +63,8 @@ def home(request):
 @login_required(login_url=index)
 def profilePage(request):
 
-    userPosts = Post.objects.filter(userOwner=request.user)
+    userPosts = Post.objects.filter(userOwner = request.user)
+    likes = PostLike.objects.filter(userOwner = request.user)
 
     if request.method == "POST":
 
@@ -79,4 +79,28 @@ def profilePage(request):
         ## Redirecting to home ##
         return redirect(home)
 
-    return render(request, 'profilePage.html', {'userPosts':userPosts})
+    return render(request, 'profilePage.html', {'userPosts':userPosts, 'likes':likes})
+
+@login_required(login_url=index)
+def likeOptions(request, id):
+
+    ## Storing the post target ##
+    post = Post.objects.get(id=id)
+
+    ## Checking for like or deslike
+    try:
+        like = PostLike.objects.get(post=post)
+
+        PostLike.unLike(post, request.user)
+        post.likes -= 1
+        post.save()
+
+        return redirect(profilePage)
+    
+    except:
+
+        PostLike.giveLike(post, request.user)
+        post.likes += 1
+        post.save()
+
+        return redirect(profilePage)

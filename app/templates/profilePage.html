@@ -25,24 +25,37 @@
     <hr>
     <div>
         {% for post in userPosts %}
-            <div>
                 <div>
-                    <h3>
-                        {{post.title}}
-                    </h3>
+                    <div>
+                        <h3>
+                            {{post.title}}
+                        </h3>
+                    </div>
+                    {% if post.attachment.url != "" %}
+                    <div>
+                        <img src="{{post.attachment.url}}" alt="" srcset="" style="width: 200px;">
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h3>    
+                            <textarea name="" id="" cols="30" rows="10" readonly style="resize: none;">{{post.content}}</textarea>
+                        </h3>
+                    </div>
+                    <h3>Likes: {{ post.likes }}</h3>
                 </div>
-                {% if post.attachment.url != "" %}
                 <div>
-                    <img src="{{post.attachment.url}}" alt="" srcset="" style="width: 200px;">
+                    {% if likes is not None %}
+                        <a href="{% url 'likeOptions' post.id %}"><button>Like</button></a>
+                    {% endif %}
+                    {% for like in likes %}
+                        {% if like.post.id == post.id %}
+                            <a href="{% url 'likeOptions' post.id %}"><button>Un-Like</button></a>
+                        {% else %}
+                            <a href="{% url 'likeOptions' post.id %}"><button>Like</button></a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                {% endif %}
-                <div>
-                    <h3>
-                        <textarea name="" id="" cols="30" rows="10" readonly style="resize: none;">{{post.content}}</textarea>
-                    </h3>
-                </div>
-            </div>
-            <hr>
+                <hr>
         {% endfor %}
     </div>
 </body>
